@@ -42,6 +42,9 @@ export default function App() {
   const [confirmDeleteId, setConfirmDeleteId] = useState(null);
   const [toast, setToast] = useState(null);
 
+  //Email
+  const HK_ADMIN_EMAIL = "osricgjacobs@gmail.com";
+
   const showToast = (message, type = "info") => {
     setToast({ message, type });
     setTimeout(() => setToast(null), 3600);
@@ -95,12 +98,18 @@ export default function App() {
   }, []);
 
   // Auth Handlers
-  const handleAdminLogin = async (email, password) => {
-    setIsAuthenticating(true);
+  const handleAdminLogin = async (password) => {
     setLoginError("");
+
+    if (password.trim() !== "HK2026/2027") {
+      setLoginError("Incorrect HK password. Please try again.");
+      return;
+    }
+
+    setIsAuthenticating(true);
     const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
+      email: HK_ADMIN_EMAIL,
+      password: password.trim(),
     });
     setIsAuthenticating(false);
 

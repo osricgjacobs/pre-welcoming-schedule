@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Mail, Lock, Shield, UserCheck, X } from "lucide-react";
+import { Lock, Shield, UserCheck, X } from "lucide-react";
 import { HansStormChickenShieldImg } from "../common/BrandAssets";
 
 export default function AdminLoginModal({
@@ -10,14 +10,13 @@ export default function AdminLoginModal({
   loginError,
   isAuthenticating,
 }) {
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   if (!isOpen) return null;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLoginSubmit(email.trim(), password);
+    onLoginSubmit(password);
   };
 
   return (
@@ -46,21 +45,8 @@ export default function AdminLoginModal({
         <div className="p-6 space-y-5">
           <form onSubmit={handleSubmit} className="space-y-3">
             <label className="block text-xs font-bold uppercase tracking-wider text-[#384c5c]">
-              HK Committee Admin Login
+              HK Committee Password
             </label>
-
-            <div className="relative">
-              <Mail className="w-4 h-4 text-[#506c84] absolute left-3.5 top-1/2 -translate-y-1/2" />
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="HK Admin Email"
-                className="w-full pl-10 pr-4 py-2.5 text-sm border border-[#dbe2e8] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#506c84]"
-                required
-                autoFocus
-              />
-            </div>
 
             <div className="relative">
               <Lock className="w-4 h-4 text-[#506c84] absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -68,9 +54,10 @@ export default function AdminLoginModal({
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="HK Admin Password"
+                placeholder="Enter HK Password"
                 className="w-full pl-10 pr-4 py-2.5 text-sm border border-[#dbe2e8] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#506c84]"
                 required
+                autoFocus
               />
             </div>
 
@@ -86,7 +73,7 @@ export default function AdminLoginModal({
               <Shield className="w-4 h-4 text-[#facc15]" />
               <span>
                 {isAuthenticating
-                  ? "Signing in..."
+                  ? "Verifying..."
                   : "Unlock HK Admin Controls"}
               </span>
             </button>
